@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zebeşçi güzeli</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background: #fff5f5;
+            color: #2d3748;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Karpuz ve Kalp Parçacıkları */
+        .particle {
+            position: absolute;
+            position: absolute;
+            top: -50px;
+            pointer-events: none;
+            animation: fall linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(105vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Ana Kart Tasarımı */
+        .container {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(255, 138, 138, 0.15);
+            width: 90%;
+            max-width: 450px;
+            text-align: center;
+            z-index: 10;
+            transition: all 0.5s ease;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #ff4d6d;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        p {
+            font-size: 16px;
+            color: #4a5568;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .step {
+            display: none;
+        }
+
+        .step.active {
+            display: block;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Buton Stilleri */
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            min-height: 110px;
+        }
+
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 50px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 280px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .btn-primary {
+            background: #ff4d6d;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #ff758f;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 77, 109, 0.3);
+        }
+
+        .btn-secondary {
+            background: #e2e8f0;
+            color: #4a5568;
+        }
+
+        .btn-secondary:hover {
+            background: #cbd5e1;
+        }
+
+        /* Kaçan Buton Özel Ayarı */
+        #run-btn {
+            position: absolute;
+            transition: all 0.2s ease;
+            z-index: 20;
+        }
+
+        /* Formspree Gizli Form */
+        #formspree-form {
+            display: none;
+        }
+        
+        .watermelon-heart {
+            font-size: 45px;
+            margin-bottom: 15px;
+            display: inline-block;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Formspree Entegrasyonu İçin Gizli Form -->
+    <form id="formspree-form" action="https://formspree.io/f/YOUR_FORMSPREE_ID_HERE" method="POST">
+        <input type="text" name="mesaj" value="Zelal sayfaya giriş yaptı!">
+    </form>
+
+    <div class="container">
+        <!-- ADIM 1: Giriş Ekranı -->
+        <div class="step active" id="step-1">
+            <div class="watermelon-heart">🍉❤️🍉</div>
+            <h1>Zelal hanım için </h1>
+            <p>Sadece 'özlemeyenler' ve bir miktar kırgın olanlar için özel olarak kodlanmıştır</p>
+            <button class="btn btn-primary" onclick="nextStep(2)">Giriş Yap</button>
+        </div>
+
+        <!-- ADIM 2: İlk Soru (Kaçan Buton) -->
+        <div class="step" id="step-2">
+            <h1>Ufak Bir Soru...</h1>
+            <p>Son zamanlarda birisi (isim vermeyelim, baş harfi ben) biraz fazla düz ve odunsu cevaplar vermiş olabilir mi?</p>
+            <div class="btn-group">
+                <button class="btn btn-primary" onclick="nextStep(3)">Evet, kesinlikle! 😤</button>
+                <button class="btn btn-secondary" id="run-btn" onmouseover="runAway()" onclick="runAway()">Hayır 🍉</button>
+            </div>
+        </div>
+
+        <!-- ADIM 3: İkinci Soru -->
+        <div class="step" id="step-3">
+            <h1>Peki Durum Şöyleyse?</h1>
+            <p>Bu bahsettiğimiz odun, aslında seni kırmak istemediğini ve sadece o an yanlış anlaşıldığını tatlı bir dille anlatmak istiyorsa?</p>
+            <div class="btn-group" style="flex-direction: column;">
+                <button class="btn btn-primary" onclick="nextStep(4)">tamam barışalım 🎧</button>
+                <button class="btn btn-secondary" onclick="nextStep(4)">Hâlâ biraz burnu sürtsün ama yine de barışalım 😜</button>
+            </div>
+        </div>
+
+        <!-- ADIM 4: Final ve WhatsApp Yönlendirmesi -->
+        <div class="step" id="step-4">
+            <div class="watermelon-heart">🍉</div>
+            <h1>Masadaki Son Teklif</h1>
+            <p>Aramızdaki tüm tatsızlıkları ve uzaklığı bırakalım eskisi gibi yani karpuz ve peynir ikilisi gibi devam edelim </p>
+            <button class="btn btn-primary" onclick="sendWhatsApp()">sen iste yeter iboooom</button>
+        </div>
+    </div>
+
+    <script>
+        // Formspree Bildirimi (Sayfa yüklendiğinde tetiklenir)
+        window.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('formspree-form');
+            // Kullanıcı kendi Formspree ID'sini girdiğinde aktif olur
+            if(form.getAttribute('action') !== 'https://formspree.io/f/YOUR_FORMSPREE_ID_HERE') {
+                fetch(form.action, {
+                    method: 'POST',
+                    body: new FormData(form),
+                    headers: { 'Accept': 'application/json' }
+                }).catch(err => console.log("Formspree bildirimi gönderilemedi."));
+            }
+        });
+
+        // Adım Değiştirme Fonksiyonu
+        function nextStep(stepNumber) {
+            document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
+            document.getElementById(`step-${stepNumber}`).classList.add('active');
+        }
+
+        // Kaçan Buton Mekanizması
+        function runAway() {
+            const btn = document.getElementById('run-btn');
+            const container = document.querySelector('.btn-group');
+            const containerRect = container.getBoundingClientRect();
+            
+            // Sınırlar içinde rastgele bir pozisyon (Butonun dışarı taşmaması için kısıtlı alan)
+            const maxX = containerRect.width - btn.offsetWidth;
+            const maxY = containerRect.height - btn.offsetHeight;
+            
+            const randomX = Math.floor(Math.random() * maxX);
+            const randomY = Math.floor(Math.random() * maxY);
+            
+            btn.style.left = randomX + 'px';
+            btn.style.top = randomY + 'px';
+        }
+
+        // WhatsApp Yönlendirmesi
+        function sendWhatsApp() {
+            const phoneNumber = "905325870510"; // Kendi telefon numaranı buraya yaz (Örn: 905301234567)
+            const message = "sen iste yeter ibooom";
+            const encodedMessage = encodeURIComponent(message);
+            window.location.href = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+        }
+
+        // Karpuz ve Kalp Yağmuru Efekti
+        const emojis = ['🍉', '❤️', '🍉', '💖'];
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            particle.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+            
+            particle.style.left = Math.random() * 100 + 'vw';
+            particle.style.fontSize = Math.random() * 20 + 20 + 'px';
+            particle.style.animationDuration = Math.random() * 3 + 2 + 's';
+            
+            document.body.appendChild(particle);
+            
+            setTimeout(() => {
+                particle.remove();
+            }, 5000);
+        }
+        
+        // Düzenli aralıklarla parçacık üret
+        setInterval(createParticle, 300);
+    </script>
+</body>
+  </html>
+  
